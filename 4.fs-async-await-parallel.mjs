@@ -1,3 +1,5 @@
+// ASÍNCRONO EN PARALELO
+
 const { readFile } = require("node:fs/promises");
 
 async function init() {
