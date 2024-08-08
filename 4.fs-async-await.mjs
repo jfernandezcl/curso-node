@@ -1,13 +1,11 @@
-const fs = require("node:fs/promises");
+import { readFile } from "node:fs/promises";
 
 console.log("Leyendo el primer archivo...");
-fs.readFile("./archivo.txt", "utf-8").then((text) => {
-  console.log("primer texto:", text);
-});
+const text = await readFile("./archivo.txt", "utf-8");
+console.log("primer texto:", text);
 
 console.log("--> Hacer cosas mientras lee este archivo...");
 
 console.log("Leyendo el segundo archivo...");
-fs.readFile("./archivo2.txt", "utf-8").then((text) => {
-  console.log("segundo texto:", text);
-});
+const secondText = await readFile("./archivo2.txt", "utf-8");
+console.log("segundo texto:", secondText);
