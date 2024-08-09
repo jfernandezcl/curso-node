@@ -9,5 +9,9 @@ console.log(filePath);
 //Nombre del fichero
 const base = path.basename("/tmp/midu-files/password.txt");
 console.log(base);
-const fileName = path.basename("/tmp/midu-files/password.txt", "txt");
+const fileName = path.basename("/tmp/midu-files/password.txt", ".txt");
 console.log(fileName);
+
+// Para obtener la extensión
+const extension = path.extname("images.jpg");
+console.log(extension);
