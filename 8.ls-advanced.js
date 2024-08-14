@@ -28,7 +28,7 @@ async function ls(folder) {
     const fileSize = stats.size;
     const fileModified = stats.mtime.toLocaleString();
 
-    return `${fileType} ${file.padEnd(25)} ${fileSize
+    return `${pc.blue(fileType)} ${file.padEnd(25)} ${fileSize
       .toString()
       .padStart(10)} ${fileModified}`;
   });
