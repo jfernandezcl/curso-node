@@ -28,9 +28,9 @@ async function ls(folder) {
     const fileSize = stats.size;
     const fileModified = stats.mtime.toLocaleString();
 
-    return `${pc.blue(fileType)} ${file.padEnd(25)} ${fileSize
-      .toString()
-      .padStart(10)} ${fileModified}`;
+    return `${pc.blue(fileType)} ${pc.green(file.padEnd(25))} ${pc.red(
+      fileSize.toString().padStart(10)
+    )} ${pc.yellow(fileModified)}`;
   });
 
   const filesInfo = await Promise.all(filesPromises);
