@@ -1,1 +1,0 @@
-- Instaladas las dependencias de picocolors
