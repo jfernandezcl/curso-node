@@ -6,10 +6,8 @@ const processRequest = (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
 
   if (req.url === '/') {
-    res.statusCode = 200 // OK
     res.end('Bienvenido a mi página web')
   } else if (req.url === '/contacto') {
-    res.statusCode = 200
     res.end('<h1>Contacto<h1>')
   } else {
     res.statusCode = 404 // Not Found
