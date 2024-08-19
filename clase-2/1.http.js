@@ -3,7 +3,7 @@ const http = require('node:http') // protocolo http
 const desiredPort = process.env.PORT ?? 1234
 
 const processRequest = (req, res) => {
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+  res.setHeader('Content-Type', 'text/html; charset=utf-8')
 
   if (req.url === '/') {
     res.statusCode = 200 // OK
