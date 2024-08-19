@@ -1,4 +1,4 @@
-const http = require('node:http')
+const http = require('node:http') // protocolo http
 
 const desiredPort = process.env.PORT ?? 1234
 
