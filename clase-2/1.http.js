@@ -7,7 +7,7 @@ const processRequest = (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
 
   if (req.url === '/') {
-    res.end('Bienvenido a mi página web')
+    res.end('<h1>Mi página</h1>')
   } else if (req.url === '/imagen-super-bonita.png') {
     fs.readFile('./placa.png', (err, data) => {
       if (err) {
