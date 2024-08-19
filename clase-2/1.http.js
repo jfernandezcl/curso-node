@@ -9,12 +9,13 @@ const processRequest = (req, res) => {
   if (req.url === '/') {
     res.end('Bienvenido a mi página web')
   } else if (req.url === '/imagen-super-bonita.png') {
-    res.setHeader('Content-Type', 'image/png')
-
-    fs.readFile('./placa.png', (err) => {
+    fs.readFile('./placa.png', (err, data) => {
       if (err) {
         res.statusCode = 500
         res.end('<h1>500 Internal Server Error</h1>')
+      } else {
+        res.setHeader('Content-Type', 'image/png')
+        res.end(data)
       }
     })
   } else if (req.url === '/contacto') {
