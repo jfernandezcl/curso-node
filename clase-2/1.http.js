@@ -1,4 +1,5 @@
 const http = require('node:http') // protocolo http
+const fs = require('node:fs')
 
 const desiredPort = process.env.PORT ?? 1234
 
@@ -7,6 +8,15 @@ const processRequest = (req, res) => {
 
   if (req.url === '/') {
     res.end('Bienvenido a mi página web')
+  } else if (req.url === '/imagen-super-bonita.png') {
+    res.setHeader('Content-Type', 'image/png')
+
+    fs.readFile('./placa.png', (err) => {
+      if (err) {
+        res.statusCode = 500
+        res.end('<h1>500 Internal Server Error</h1>')
+      }
+    })
   } else if (req.url === '/contacto') {
     res.end('<h1>Contacto<h1>')
   } else {
