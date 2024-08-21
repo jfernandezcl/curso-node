@@ -30,7 +30,11 @@ const processRequest = (req, res) => {
           // ya estaría terminado y lo parseamos en el body
           req.on('end', () => {
             const data = JSON.parse(body)
+            // llamar a una base de datos para guardar la info
+            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf - 8' })
+            res.end(JSON.stringify(data))
           })
+          break
         }
 
         default:
