@@ -23,6 +23,11 @@ const processRequest = (req, res) => {
           const body = ''
           break
         }
+
+        case '/otro': {
+          const body = ''
+          break
+        }
       }
   }
 }
