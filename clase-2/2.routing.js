@@ -24,10 +24,6 @@ const processRequest = (req, res) => {
           break
         }
 
-        case '/otro': {
-          const body = ''
-          break
-        }
         default:
           res.statusCode = 404
           res.setHeader('Content-Type', 'text/html; charset=utf-8')
