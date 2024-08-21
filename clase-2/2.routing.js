@@ -1,5 +1,8 @@
+// Configuración de servidor HTTP para manejar solicitudes 'GET' y 'POST'
+
 const http = require('node:http')
 
+// commonJS => modulos clásicos de node
 const dittoJSON = require('./pokemon/ditto.json')
 
 const processRequest = (req, res) => {
@@ -31,7 +34,7 @@ const processRequest = (req, res) => {
           req.on('end', () => {
             const data = JSON.parse(body)
             // llamar a una base de datos para guardar la info
-            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf - 8' })
+            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' })
             res.end(JSON.stringify(data))
           })
           break
@@ -39,7 +42,7 @@ const processRequest = (req, res) => {
 
         default:
           res.statusCode = 404
-          res.setHeader('Content-Type', 'text/html; charset=utf-8')
+          res.setHeader('Content-Type', 'text/plain; charset=utf-8')
           return res.end('404 Not Found')
       }
   }
