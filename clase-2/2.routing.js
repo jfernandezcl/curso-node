@@ -28,6 +28,10 @@ const processRequest = (req, res) => {
           const body = ''
           break
         }
+        default:
+          res.statusCode = 404
+          res.setHeader('Content-Type', 'text/html; charset=utf-8')
+          return res.end('404 Not Found')
       }
   }
 }
