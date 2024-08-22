@@ -1,5 +1,5 @@
-// Importar el framework de express
 const express = require('express')
+const ditto = require('./pokemon/ditto.json')
 
 // Crear la aplicación
 const app = express()
@@ -11,8 +11,8 @@ app.disable('x-powered-by')
 const PORT = process.env.PORT ?? 1234
 
 // Crear las rutas
-app.get('/', (req, res) => {
-  res.send('<h1>Mi página</h1>')
+app.get('/pokemon/ditto', (req, res) => {
+  res.json(ditto)
 })
 
 app.post('/pokemon', (req, res) => {
