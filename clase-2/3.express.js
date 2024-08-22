@@ -46,19 +46,7 @@ app.get('/pokemon/ditto', (req, res) => {
 })
 
 app.post('/pokemon', (req, res) => {
-  let body = ''
-
-  // escuchar el evento data
-  req.on('data', chunk => {
-    body += chunk.toString()
-  })
-
-  // ya estaría terminado y lo parseamos en el body
-  req.on('end', () => {
-    const data = JSON.parse(body)
-    data.timestamp = Date.now()
-    res.status(201).json(data)
-  })
+  res.status(201).json(req.body)
 })
 
 // La última a la que va a llegar
