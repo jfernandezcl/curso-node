@@ -4,6 +4,9 @@ const express = require('express')
 // Crear la aplicación
 const app = express()
 
+// para desactivar la cabecera de express
+app.disable('x-powered-by')
+
 // El puerto que vamos a utilizar
 const PORT = process.env.PORT ?? 1234
 
