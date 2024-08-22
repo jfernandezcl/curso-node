@@ -3,9 +3,18 @@ const ditto = require('./pokemon/ditto.json')
 
 // Crear la aplicación
 const app = express()
-
-// para desactivar la cabecera de express
 app.disable('x-powered-by')
+
+// app.use((req, res, next) => {
+// console.log('mi primer middleware)
+// --> trakear la request a la base de datos
+// --> revisar si el usuario tiene cookies
+// next()
+// })
+
+app.use((req, res, next) => {
+  next()
+})
 
 // El puerto que vamos a utilizar
 const PORT = process.env.PORT ?? 1234
