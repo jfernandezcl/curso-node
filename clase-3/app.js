@@ -1,10 +1,12 @@
 const express = require('express') // require => commonJS
+const movies = require('./movies.json')
 
 const app = express()
 app.disable('x-powered-by')// deshabilitar el headerx-powered-by: Express
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hola mundo' })
+// Todos los recursos que sean MOVIES se identifica con /movies
+app.get('/movies', (req, res) => {
+  res.json(movies)
 })
 
 const PORT = process.env.PORT ?? 1234
