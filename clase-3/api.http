@@ -9,3 +9,11 @@ GET http://localhost:1234/movies?genre=Terror
 
 ### Crear una película con POST
 POST  http://localhost:1234/movies
+Content-Type: application/json
+
+{
+  "title": "The Matrix",
+  "year": 1999,
+  "director": "Lana Wachowski"
+  "genre": "ACTION"
+}
