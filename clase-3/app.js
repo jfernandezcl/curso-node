@@ -1,7 +1,9 @@
 const express = require('express') // require => commonJS
+const crypto = require('node:crypto')
 const movies = require('./movies.json')
 
 const app = express()
+app.use(express.json())
 app.disable('x-powered-by')// deshabilitar el headerx-powered-by: Express
 
 // Todos los recursos que sean MOVIES se identifica con /movies
@@ -22,6 +24,35 @@ app.get('/movies/:id', (req, res) => {
   if (movie) return res.json(movie)
 
   res.status(404).json({ message: 'Movies not found' })
+})
+
+app.post('/movies', (req, res) => {
+  const {
+    title,
+    genre,
+    year,
+    director,
+    duration,
+    rate,
+    poster
+  } = req.body
+
+  const newMovies = {
+    id: crypto.randomUUID(), // uuid v 4
+    title,
+    genre,
+    year,
+    director,
+    duration,
+    rate: rate ?? 0,
+    poster
+  }
+
+  // Esto no sería REST, porque estamos guardando
+  // el estado de la aplicación en memoria
+  movies.push(newMovies)
+
+  res.status(201).json(newMovies)
 })
 
 const PORT = process.env.PORT ?? 1234
