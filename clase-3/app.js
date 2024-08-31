@@ -11,6 +11,7 @@ app.get('/movies', (req, res) => {
     const filteredMovies = movies.filter(
       movies => movies.genre.some(g => g.toLowerCase() === genre.toLowerCase())
     )
+    return res.json(filteredMovies)
   }
   res.json(movies)
 })
