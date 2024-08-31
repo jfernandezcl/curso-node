@@ -14,6 +14,11 @@ Content-Type: application/json
 {
   "title": "The Matrix",
   "year": 1999,
-  "director": "Lana Wachowski"
-  "genre": "ACTION"
+  "director": "Lana Wachowski",
+  "duration": 136,
+  "poster": "https://i.ebayimg.com/images/g/QFQAAOSwAQpfjaA6/s-l1200.jpg",
+  "genre": [
+      "Action",
+      "Sci-Fi"
+    ]
 }
