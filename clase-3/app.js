@@ -1,6 +1,8 @@
 const express = require('express') // require => commonJS
 const crypto = require('node:crypto')
 const movies = require('./movies.json')
+const z = require('zod')
+const { title } = require('node:process')
 
 const app = express()
 app.use(express.json())
@@ -8,6 +10,17 @@ app.disable('x-powered-by')// deshabilitar el headerx-powered-by: Express
 
 // Todos los recursos que sean MOVIES se identifica con /movies
 app.get('/movies', (req, res) => {
+  const movieSchema = z.object({
+    title: z.string({
+      invalid_type_error: 'Movie title must be a string',
+      required_error: 'Movie title is required'
+    }),
+    year: z.number().int().min(1900).max(2024),
+    director: z.string(),
+    duration: z.number().int(), positive(),
+    rate: z.number().int().min(0).max(10)
+
+  })
   const { genre } = req.query
   if (genre) {
     const filteredMovies = movies.filter(
