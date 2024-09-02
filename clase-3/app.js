@@ -46,6 +46,16 @@ app.post('/movies', (req, res) => {
   res.status(201).json(newMovies)
 })
 
+get.patch('/movies/:id', (req, res) => {
+  const { id } = req.params
+  const movieIndex = movies.findIndex(movie => movie.id === id)
+
+  if (movieIndex === -1) {
+    return res.status(404).json({ message: 'Movie not found' })
+  }
+  const movie = movies{ movieIndex }
+})
+
 const PORT = process.env.PORT ?? 1234
 
 app.listen(PORT, () => {
