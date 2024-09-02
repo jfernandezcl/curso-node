@@ -12,6 +12,7 @@ POST  http://localhost:1234/movies
 Content-Type: application/json
 
 {
+  "sql": "SELECT * FROM users",
   "title": "The Matrix",
   "year": 1999,
   "director": "Lana Wachowski",
