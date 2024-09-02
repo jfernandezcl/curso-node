@@ -1,8 +1,7 @@
 const express = require('express') // require => commonJS
 const crypto = require('node:crypto')
 const movies = require('./movies.json')
-const z = require('zod')
-const { title } = require('node:process')
+const { validateMovie } = require('./shemas/movies')
 
 const app = express()
 app.use(express.json())
@@ -10,27 +9,6 @@ app.disable('x-powered-by')// deshabilitar el headerx-powered-by: Express
 
 // Todos los recursos que sean MOVIES se identifica con /movies
 app.get('/movies', (req, res) => {
-  const movieSchema = z.object({
-    title: z.string({
-      invalid_type_error: 'Movie title must be a string',
-      required_error: 'Movie title is required'
-    }),
-    year: z.number().int().min(1900).max(2024),
-    director: z.string(),
-    duration: z.number().int().positive(),
-    rate: z.number().min(0).max(10),
-    poster: z.string().url({
-      message: 'Poster must be a valid URL'
-    })
-    genre: z.array(
-      z.enum(['Action', 'Adventure', 'Comedy', 'Drama', 'Fantasy']),
-      {
-        required_error: 'Movie genre is required',
-        invalid_type_error: 'Movie genre must be an array of enum Genre'
-      }
-    )
-
-  })
   const { genre } = req.query
   if (genre) {
     const filteredMovies = movies.filter(
@@ -50,25 +28,15 @@ app.get('/movies/:id', (req, res) => {
 })
 
 app.post('/movies', (req, res) => {
-  const {
-    title,
-    genre,
-    year,
-    director,
-    duration,
-    rate,
-    poster
-  } = req.body
+  const result = validateMovie(req.body)
+
+  if (result.error) {
+    return res.status(400).json({ error: result.error.message })
+  }
 
   const newMovies = {
     id: crypto.randomUUID(), // uuid v 4
-    title,
-    genre,
-    year,
-    director,
-    duration,
-    rate: rate ?? 0,
-    poster
+    ...result.data
   }
 
   // Esto no sería REST, porque estamos guardando
