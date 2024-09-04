@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto'
 import cors from 'cors'
 
 import movies from './movies.json'
-import { validateMovie, validatePartialMovie } from './schemas/movies'
+import { validateMovie, validatePartialMovie } from './schemas/movies.js'
 
 const app = express()
 app.use(json())
