@@ -1,6 +1,6 @@
 import express, { json } from 'express' // require -> commonJS
-import cors from 'cors'
 import { moviesRouter } from './router/movies'
+import { corsMiddleware } from './middlewares/cors.js'
 
 // Como leer un JSON en ESModules
 // import fs from 'node:fs'
@@ -10,42 +10,8 @@ import { moviesRouter } from './router/movies'
 
 const app = express()
 app.use(json())
-app.use(cors({
-  origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = [
-      'http://localhost:8080',
-      'http://localhost:1234',
-      'https://movies.com',
-      'https://midu.dev'
-    ]
-
-    if (ACCEPTED_ORIGINS.includes(origin)) {
-      return callback(null, true)
-    }
-
-    if (!origin) {
-      return callback(null, true)
-    }
-
-    return callback(new Error('Not allowed by CORS'))
-  }
-}))
+app.use(corsMiddleware())
 app.disable('x-powered-by') // deshabilitar el header X-Powered-By: Express
-
-// métodos normales: GET/HEAD/POST
-// métodos complejos: PUT/PATCH/DELETE
-
-// CORS PRE-Flight
-// OPTIONS
-app.get('/movies', todo)
-
-app.get('/movies/:id', todo)
-
-app.post('/movies', todo)
-
-app.delete('/movies/:id', todo)
-
-app.patch('/movies/:id', todo)
 
 app.use('/movies', moviesRouter)
 
