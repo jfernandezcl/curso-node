@@ -1,17 +1,12 @@
 import express, { json } from 'express' // require -> commonJS
-import { randomUUID } from 'node:crypto'
 import cors from 'cors'
-
-import movies from './movies.json'
-import { validateMovie, validatePartialMovie } from './schemas/movies.js'
-import { readJSON } from './utils.js'
+import { moviesRouter } from './router/movies.js'
 
 // Como leer un JSON en ESModules
 // import fs from 'node:fs'
 // const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf-8'))
 
 // como leer un JSON en ESModules recomendado por ahora
-const movies = readJSON('./movies.json')
 
 const app = express()
 app.use(json())
@@ -44,66 +39,13 @@ app.disable('x-powered-by') // deshabilitar el header X-Powered-By: Express
 // OPTIONS
 app.get('/movies', todo)
 
-app.get('/movies/:id', (req, res) => {
-})
+app.get('/movies/:id', todo)
 
-app.post('/movies', (req, res) => {
-  const result = validateMovie(req.body)
+app.post('/movies', todo)
 
-  if (!result.success) {
-    // 422 Unprocessable Entity
-    return res.status(400).json({ error: JSON.parse(result.error.message) })
-  }
+app.delete('/movies/:id', todo)
 
-  // en base de datos
-  const newMovie = {
-    id: randomUUID(), // uuid v4
-    ...result.data
-  }
-
-  // Esto no sería REST, porque estamos guardando
-  // el estado de la aplicación en memoria
-  movies.push(newMovie)
-
-  res.status(201).json(newMovie)
-})
-
-app.delete('/movies/:id', (req, res) => {
-  const { id } = req.params
-  const movieIndex = movies.findIndex(movie => movie.id === id)
-
-  if (movieIndex === -1) {
-    return res.status(404).json({ message: 'Movie not found' })
-  }
-
-  movies.splice(movieIndex, 1)
-
-  return res.json({ message: 'Movie deleted' })
-})
-
-app.patch('/movies/:id', (req, res) => {
-  const result = validatePartialMovie(req.body)
-
-  if (!result.success) {
-    return res.status(400).json({ error: JSON.parse(result.error.message) })
-  }
-
-  const { id } = req.params
-  const movieIndex = movies.findIndex(movie => movie.id === id)
-
-  if (movieIndex === -1) {
-    return res.status(404).json({ message: 'Movie not found' })
-  }
-
-  const updateMovie = {
-    ...movies[movieIndex],
-    ...result.data
-  }
-
-  movies[movieIndex] = updateMovie
-
-  return res.json(updateMovie)
-})
+app.patch('/movies/:id', todo)
 
 const PORT = process.env.PORT ?? 1234
 
