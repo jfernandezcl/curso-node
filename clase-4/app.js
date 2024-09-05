@@ -4,12 +4,14 @@ import cors from 'cors'
 
 import movies from './movies.json'
 import { validateMovie, validatePartialMovie } from './schemas/movies.js'
+import { readJSON } from './utils.js'
 
 // Como leer un JSON en ESModules
 // import fs from 'node:fs'
 // const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf-8'))
 
 // como leer un JSON en ESModules recomendado por ahora
+const movies = readJSON('./movies.json')
 
 const app = express()
 app.use(json())
@@ -40,18 +42,6 @@ app.disable('x-powered-by') // deshabilitar el header X-Powered-By: Express
 
 // CORS PRE-Flight
 // OPTIONS
-
-// Todos los recursos que sean MOVIES se identifica con /movies
-app.get('/movies', (req, res) => {
-  const { genre } = req.query
-  if (genre) {
-    const filteredMovies = movies.filter(
-      movie => movie.genre.some(g => g.toLowerCase() === genre.toLowerCase())
-    )
-    return res.json(filteredMovies)
-  }
-  res.json(movies)
-})
 
 app.get('/movies/:id', (req, res) => {
   const { id } = req.params
