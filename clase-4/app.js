@@ -1,6 +1,6 @@
 import express, { json } from 'express' // require -> commonJS
 import cors from 'cors'
-import { moviesRouter } from './router/movies.js'
+import { moviesRouter } from './router/movies'
 
 // Como leer un JSON en ESModules
 // import fs from 'node:fs'
@@ -46,6 +46,8 @@ app.post('/movies', todo)
 app.delete('/movies/:id', todo)
 
 app.patch('/movies/:id', todo)
+
+app.use('/movies', moviesRouter)
 
 const PORT = process.env.PORT ?? 1234
 
