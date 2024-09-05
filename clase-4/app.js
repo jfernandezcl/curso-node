@@ -5,6 +5,12 @@ import cors from 'cors'
 import movies from './movies.json'
 import { validateMovie, validatePartialMovie } from './schemas/movies.js'
 
+// Como leer un JSON en ESModules
+// import fs from 'node:fs'
+// const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf-8'))
+
+// como leer un JSON en ESModules recomendado por ahora
+
 const app = express()
 app.use(json())
 app.use(cors({
