@@ -1,14 +1,15 @@
 import cors from 'cors'
 
-export const corsMiddleware = () => cors({
+const ACCEPTED_ORIGINS = [
+  'http://localhost:8080',
+  'http://localhost:1234',
+  'https://movies.com',
+  'https://midu.dev'
+]
+
+export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => cors({
   origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = [
-      'http://localhost:8080',
-      'http://localhost:1234',
-      'https://movies.com',
-      'https://midu.dev'
-    ]
-    if (ACCEPTED_ORIGINS.includes(origin)) {
+    if (acceptedOrigins.includes(origin)) {
       return callback(null, true)
     }
     if (!origin) {
