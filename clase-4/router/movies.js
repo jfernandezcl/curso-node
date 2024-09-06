@@ -13,14 +13,14 @@ moviesRouter.app('/', async (req, res) => {
   res.json(movies)
 })
 
-moviesRouter.get('/:id', (req, res) => {
+moviesRouter.get('/:id', async (req, res) => {
   const { id } = req.params
-  const movie = movies.find(movie => movie.id === id)
+  const movie = await MovieModel.getById({ id })
   if (movie) return res.json(movie)
   res.status(404).json({ message: 'Movie not found' })
 })
 
-moviesRouter.post('/', (req, res) => {
+moviesRouter.post('/', async (req, res) => {
   const result = validateMovie(req.body)
 
   if (!result.success) {
@@ -28,15 +28,7 @@ moviesRouter.post('/', (req, res) => {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
   }
 
-  // en base de datos
-  const newMovie = {
-    id: randomUUID(), // uuid v4
-    ...result.data
-  }
-
-  // Esto no sería REST, porque estamos guardando
-  // el estado de la aplicación en memoria
-  movies.push(newMovie)
+  const newMovie = await MovieModel.create(result.data)
 
   res.status(201).json(newMovie)
 })

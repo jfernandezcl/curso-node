@@ -1,4 +1,6 @@
+/* eslint-disable space-before-function-paren */
 import { readJSON } from '../util.js'
+import { randomUUID } from 'node:crypto'
 const movies = readJSON('../movies.json')
 
 export class MovieModel {
@@ -15,5 +17,14 @@ export class MovieModel {
   static async getById({ id }) {
     const movie = movies.find(movie => movie.id === id)
     return movie
+  }
+
+  static async create(input) {
+    const newMovie = {
+      id: randomUUID(),
+      ...input
+    }
+    movies.push(newMovie)
+    return newMovie
   }
 }
