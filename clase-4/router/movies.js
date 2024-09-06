@@ -7,9 +7,9 @@ import { MovieModel } from '../models/movie.js'
 const movies = readJSON('./movies.json')
 export const moviesRouter = Router()
 
-moviesRouter.app('/', (req, res) => {
+moviesRouter.app('/', async (req, res) => {
   const { genre } = req.query
-  const movies = MovieModel.getAll({ genre })
+  const movies = await MovieModel.getAll({ genre })
   res.json(movies)
 })
 
