@@ -35,4 +35,15 @@ export class MovieModel {
     movies.splice(movieIndex, 1)
     return true
   }
+
+  static async update({ id, input }) {
+    const movieIndex = movies.findIndex(movie => movie.id === id)
+    if (movieIndex === -1) return false
+
+    movies[movieIndex] = {
+      ...movies[movieIndex],
+      ...input
+    }
+    return movies[movieIndex]
+  }
 }

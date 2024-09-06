@@ -1,9 +1,7 @@
 import { Router } from 'express'
-import { readJSON } from 'util.js'
 import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
 import { MovieModel } from '../models/movie.js'
 
-const movies = readJSON('./movies.json')
 export const moviesRouter = Router()
 
 moviesRouter.app('/', async (req, res) => {
@@ -23,7 +21,6 @@ moviesRouter.post('/', async (req, res) => {
   const result = validateMovie(req.body)
 
   if (!result.success) {
-    // 422 Unprocessable Entity
     return res.status(400).json({ error: JSON.parse(result.error.message) })
   }
 
@@ -32,20 +29,19 @@ moviesRouter.post('/', async (req, res) => {
   res.status(201).json(newMovie)
 })
 
-moviesRouter.delete('/movies/:id', (req, res) => {
+moviesRouter.delete('/:id', async (req, res) => {
   const { id } = req.params
-  const movieIndex = movies.findIndex(movie => movie.id === id)
 
-  if (movieIndex === -1) {
+  const result = await MovieModel.delete({ id })
+
+  if (result === false) {
     return res.status(404).json({ message: 'Movie not found' })
   }
-
-  movies.splice(movieIndex, 1)
 
   return res.json({ message: 'Movie deleted' })
 })
 
-moviesRouter.patch('/:id', (req, res) => {
+moviesRouter.patch('/:id', async (req, res) => {
   const result = validatePartialMovie(req.body)
 
   if (!result.success) {
@@ -53,18 +49,7 @@ moviesRouter.patch('/:id', (req, res) => {
   }
 
   const { id } = req.params
-  const movieIndex = movies.findIndex(movie => movie.id === id)
-
-  if (movieIndex === -1) {
-    return res.status(404).json({ message: 'Movie not found' })
-  }
-
-  const updateMovie = {
-    ...movies[movieIndex],
-    ...result.data
-  }
-
-  movies[movieIndex] = updateMovie
+  const updateMovie = await MovieModel.update({ id, input: result.data })
 
   return res.json(updateMovie)
 })
