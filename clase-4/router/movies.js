@@ -1,14 +1,11 @@
 import { Router } from 'express'
 import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
 import { MovieModel } from '../models/movie.js'
+import { MovieController } from '../controllers/movies.js'
 
 export const moviesRouter = Router()
 
-moviesRouter.app('/', async (req, res) => {
-  const { genre } = req.query
-  const movies = await MovieModel.getAll({ genre })
-  res.json(movies)
-})
+moviesRouter.get('/', MovieController.getAll)
 
 moviesRouter.get('/:id', async (req, res) => {
   const { id } = req.params
