@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { readJSON } from 'util.js'
-import { randomUUID } from 'node:crypto'
 import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
 import { MovieModel } from '../models/movie.js'
 
@@ -28,7 +27,7 @@ moviesRouter.post('/', async (req, res) => {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
   }
 
-  const newMovie = await MovieModel.create(result.data)
+  const newMovie = await MovieModel.create({ input: result.data })
 
   res.status(201).json(newMovie)
 })
