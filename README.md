@@ -1,3 +1,5 @@
+![portada](./images/portada.jpg)
+
 ❇️ Curso de Node.js desde cero ❇️
 
 - 01: Introducción a Node.js y módulos.
