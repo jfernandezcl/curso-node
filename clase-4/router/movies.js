@@ -11,17 +11,7 @@ moviesRouter.get('/:id', MovieController.getById)
 
 moviesRouter.post('/', MovieController.create)
 
-moviesRouter.delete('/:id', async (req, res) => {
-  const { id } = req.params
-
-  const result = await MovieModel.delete({ id })
-
-  if (result === false) {
-    return res.status(404).json({ message: 'Movie not found' })
-  }
-
-  return res.json({ message: 'Movie deleted' })
-})
+moviesRouter.delete('/:id', MovieController.delete)
 
 moviesRouter.patch('/:id', async (req, res) => {
   const result = validatePartialMovie(req.body)
