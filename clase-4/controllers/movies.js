@@ -1,5 +1,5 @@
 /* eslint-disable space-before-function-paren */
-import { MovieModel } from '../models/movie'
+import { MovieModel } from '../models/database/movie.js'
 import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
 
 export class MovieController {
