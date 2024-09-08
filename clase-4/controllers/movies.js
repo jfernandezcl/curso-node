@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 import { MovieModel } from '../models/movie'
-import { validateMovie } from '../schemas/movies.js'
+import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
 
 export class MovieController {
   static async getAll(req, res) {
@@ -32,5 +32,15 @@ export class MovieController {
       return res.status(404).json({ message: 'Movie not found' })
     }
     return res.json({ message: 'Movie deleted' })
+  }
+
+  static async updated(req, res) {
+    const result = validatePartialMovie(req.body)
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+    }
+    const { id } = req.params
+    const updateMovie = await MovieModel.update({ id, input: result.data })
+    return res.json(updateMovie)
   }
 }
