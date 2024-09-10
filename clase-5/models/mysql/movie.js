@@ -13,11 +13,14 @@ const config = {
 const connection = await mysql.createConnection(config)
 
 export class MovieModel {
-  static async getById({ id }) {
+  static async getAll({ genre }) {
     const result = await connection.query(
       'SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id FROM movie;'
     )
     console.log(result)
+  }
+
+  static async getById({ id }) {
   }
 
   static async create({ input }) {
