@@ -1,8 +1,8 @@
 /* eslint-disable space-before-function-paren */
-import { readJSON } from '../util.js'
 import { randomUUID } from 'node:crypto'
+import { readJSON } from '../../utils.js'
 
-const movies = readJSON('../movies.json')
+const movies = readJSON('./movies.json')
 
 export class MovieModel {
   // eslint-disable-next-line space-before-function-paren
