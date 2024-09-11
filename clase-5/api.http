@@ -19,9 +19,9 @@ Content-Type: application/json
   "duration": 136,
   "poster": "https://i.ebayimg.com/images/g/QFQAAOSwAQpfjaA6/s-l1200.jpg",
   "genre": [
-      "Action",
-      "Sci-Fi"
-    ]
+    "Action",
+    "Sci-Fi"
+  ]
 } 
 
 ### Eliminar película
