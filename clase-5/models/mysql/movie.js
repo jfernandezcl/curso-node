@@ -71,7 +71,10 @@ export class MovieModel {
         [title, year, director, duration, poster, rate]
       )
     } catch (e) {
-      // puede enviarle información sensible
+      // NO permitir que este error lo vea el usuario, puede enviarle información sensible
+      throw new Error('Error creating movie')
+      // enviar la traza a un servicio interno
+      // enviar un corre al administrador
     }
     const [movies] = await connection.query(
       `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id 
