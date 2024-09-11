@@ -75,6 +75,7 @@ export class MovieModel {
       throw new Error('Error creating movie')
       // enviar la traza a un servicio interno
       // enviar un corre al administrador
+      // sendLog(e)
     }
     const [movies] = await connection.query(
       `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id 
