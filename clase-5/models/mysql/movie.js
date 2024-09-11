@@ -51,7 +51,15 @@ export class MovieModel {
   }
 
   static async create({ input }) {
-
+    const {
+      genre: genreInput, // genre is an array
+      title,
+      year,
+      duration,
+      director,
+      rate,
+      poster
+    } = input
   }
 
   static async delete({ id }) {
