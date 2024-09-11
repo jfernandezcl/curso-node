@@ -4,6 +4,10 @@ import { validateMovie, validatePartialMovie } from '../shemas/movies.js'
 import { MovieModel } from '../models/mysql/movie.js'
 
 export class MovieController {
+  constructor({ movieModel }) {
+    this.movieModel = movieModel
+  }
+
   getAll = async (req, res) => {
     const { genre } = req.query
     const movies = await MovieModel.getAll({ genre })
