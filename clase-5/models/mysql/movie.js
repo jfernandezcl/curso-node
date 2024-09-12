@@ -8,10 +8,10 @@ const DEFAULT_CONFIG = {
   password: '',
   database: 'moviesdb'
 }
-const connection = process.env.DATABASE_URL ?? DEFAULT_CONFIG
+const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
 // conectarnos
-const connection = await mysql.createConnection(config)
+const connection = await mysql.createConnection(connectionString)
 
 export class MovieModel {
   static async getAll({ genre }) {
