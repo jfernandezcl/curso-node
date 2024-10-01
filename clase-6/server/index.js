@@ -9,6 +9,11 @@ const port = process.env.PORT ?? 3000
 const app = express()
 const server = createServer(app)
 const io = new Server(server)
+
+io.on('connection', () => {
+  console.log('a user has connected')
+})
+
 app.use(logger('dev')) // --> dev --> Lo utilizamos en modo desarollo
 
 app.get('/', (req, res) => {
