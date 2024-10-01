@@ -7,3 +7,7 @@ const app = express()
 app.get('/', (req, res) => {
   res.end('<h1> Esto es el chat</h1>')
 })
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})
