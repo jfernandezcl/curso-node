@@ -7,7 +7,7 @@ const app = express()
 app.use(logger('dev')) // --> dev --> Lo utilizamos en modo desarollo
 
 app.get('/', (req, res) => {
-  res.end('<h1> Esto es el chat</h1>')
+  res.sendFile(process.cwd() + '/client/index.html')
 })
 
 app.listen(port, () => {
