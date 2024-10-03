@@ -7,6 +7,24 @@
     <script type="module">
       import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
       const socket = io();
+
+      const form = document.getElementById("form"); // Para cuando hagamos el submit
+      const input = document.getElementById("input"); // Para leer la información del mensaje
+      const messages = document.getElementById("messages"); // Aquí es donde guardamos los mensajes
+
+      socket.on("chat message", (msg) => {
+        const item = `<li>${msg}</li>`;
+        messages.insertAdjacentHTML("beforeend", item);
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (input.value) {
+          socket.emit("chat message", input.value);
+          input.value = "";
+        }
+      });
     </script>
     <style>
       *,
@@ -29,6 +47,9 @@
         height: 100vh;
         padding: 36px;
         grid-template-rows: 1fr;
+      }
+
+      #messages {
       }
 
       #chat {
@@ -76,6 +97,7 @@
   </head>
   <body>
     <section id="chat">
+      <ul id="messages"></ul>
       <form id="form">
         <input
           type="text"
