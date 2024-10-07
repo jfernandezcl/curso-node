@@ -32,8 +32,13 @@ io.on('connection', (socket) => {
     console.log('an user has disconnected')
   })
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg)
+  socket.on('chat message', async (msg) => {
+    try {
+      await db.execute('INSERT INTO MESSAGE (content) VALUES (?)', [msg])
+      io.emit('chat message', msg)
+    } catch (error) {
+      console.error('Error saving message')
+    }
   })
 })
 
