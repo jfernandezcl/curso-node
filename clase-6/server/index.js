@@ -1,8 +1,12 @@
 import express from 'express'
 import logger from 'morgan'
-
 import { Server } from 'socket.io'
 import { createServer } from 'node:http' // modulo para crear servidores http
+import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+
+// cargar variables de entorno
+dotenv.config()
 
 const port = process.env.PORT ?? 3000
 
