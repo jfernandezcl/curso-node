@@ -16,6 +16,11 @@ const io = new Server(server, {
   connectionStateRecovery: {}
 })
 
+// conexión a la base de datos usando varibles de entorno
+const db = await mysql.createConnection({
+  host: process.env.DB_HOST
+})
+
 io.on('connection', (socket) => {
   console.log('a user has connected')
 
