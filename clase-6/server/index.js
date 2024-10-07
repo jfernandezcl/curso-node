@@ -34,8 +34,8 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', async (msg) => {
     try {
-      await db.execute('INSERT INTO message (content) VALUES (?)', [msg])
-      io.emit('chat message', msg)
+      const result = await db.execute('INSERT INTO message (content) VALUES (?)', [msg])
+      io.emit('chat message', msg, result.lastInsertRowid.toString())
     } catch (error) {
       console.error('Error saving message', error)
     }
