@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from 'express'
 import logger from 'morgan'
 
@@ -8,7 +9,15 @@ const port = process.env.PORT ?? 3000
 
 const app = express()
 const server = createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+  connectionStateRecovery: {}
+})
+
+// eslint-disable-next-line no-unused-vars
+const db = createClient({
+  url: '',
+  authToken: process.env.DB_TOKEN
+})
 
 io.on('connection', (socket) => {
   console.log('a user has connected')
