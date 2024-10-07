@@ -22,7 +22,7 @@ const db = await mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.PORT
+  port: process.env.DB_PORT
 })
 
 io.on('connection', (socket) => {
@@ -34,10 +34,10 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', async (msg) => {
     try {
-      await db.execute('INSERT INTO MESSAGE (content) VALUES (?)', [msg])
+      await db.execute('INSERT INTO message (content) VALUES (?)', [msg])
       io.emit('chat message', msg)
     } catch (error) {
-      console.error('Error saving message')
+      console.error('Error saving message', error)
     }
   })
 })
