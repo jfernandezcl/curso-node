@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import express from 'express'
 import logger from 'morgan'
 
@@ -11,12 +10,6 @@ const app = express()
 const server = createServer(app)
 const io = new Server(server, {
   connectionStateRecovery: {}
-})
-
-// eslint-disable-next-line no-unused-vars
-const db = createClient({
-  url: '',
-  authToken: process.env.DB_TOKEN
 })
 
 io.on('connection', (socket) => {
