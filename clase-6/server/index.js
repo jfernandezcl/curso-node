@@ -51,7 +51,7 @@ io.on('connection', async (socket) => {
       )
 
       results[0].forEach(row => {
-        socket.emit('chat message', row.content, row.id.toString(), row.username)
+        socket.emit('chat message', row.content, row.id.toString(), row.user)
       })
     } catch (error) {
       console.error(error)
