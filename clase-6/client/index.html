@@ -41,6 +41,7 @@
           </li>`;
         messages.insertAdjacentHTML("beforeend", item);
         server.auth.serverOffset = serverOffset;
+        messages.scrollTop = messages.scrollHeight;
       });
 
       form.addEventListener("submit", (e) => {
