@@ -33,7 +33,7 @@
         return randomUsername;
       };
 
-      socket.on("chat message", (msg, serverOffset) => {
+      socket.on("chat message", (msg, serverOffset, username) => {
         const item = `<li>${msg}</li>`;
         messages.insertAdjacentHTML("beforeend", item);
         server.auth.serverOffset = serverOffset;
@@ -43,7 +43,7 @@
         e.preventDefault();
 
         if (input.value) {
-          socket.emit("chat message", input.value);
+          socket.emit("chat message", input.value, username);
           input.value = "";
         }
       });
