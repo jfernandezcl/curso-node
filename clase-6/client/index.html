@@ -17,9 +17,10 @@
       const input = document.getElementById("input"); // Para leer la información del mensaje
       const messages = document.getElementById("messages"); // Aquí es donde guardamos los mensajes
 
-      socket.on("chat message", (msg) => {
+      socket.on("chat message", (msg, serverOffset) => {
         const item = `<li>${msg}</li>`;
         messages.insertAdjacentHTML("beforeend", item);
+        server.auth.serverOffset = serverOffset;
       });
 
       form.addEventListener("submit", (e) => {
