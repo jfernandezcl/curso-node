@@ -9,7 +9,7 @@
 
       const socket = io({
         auth: {
-          username: getUsername(),
+          username: await getUsername(),
           serverOffset: 0,
         },
       });
@@ -43,7 +43,7 @@
         e.preventDefault();
 
         if (input.value) {
-          socket.emit("chat message", input.value, username);
+          socket.emit("chat message", input.value);
           input.value = "";
         }
       });
