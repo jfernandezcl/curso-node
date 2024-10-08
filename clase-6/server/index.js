@@ -33,20 +33,24 @@ io.on('connection', async (socket) => {
   })
 
   socket.on('chat message', async (msg) => {
+    let result
     try {
-      const result = await db.execute('INSERT INTO message (content) VALUES (?)', [msg])
-      io.emit('chat message', msg, result.lastInsertRowid.toString())
+      result = await db.execute('INSERT INTO message (content) VALUES (?)', [msg])
     } catch (error) {
       console.error('Error saving message', error)
+      return
     }
+    io.emit('chat message', msg, result.lastInsertRowid.toString())
   })
 
   if (!socket.recovered) { // <-- recuperar todos los mensajes sin conexión
     try {
-      const results = await db.execute({
-        sql: 'SELECT id, content FROM message WHERE id > ?',
-        args: [socket.handshake.auth.serverOffset ?? 0]
-      })
+      const results = await db.execute(
+        'SELECT id, content FROM message WHERE id > ?',
+        [socket.handshake.auth.serverOffset ?? 0]
+      )
+
+      console.log(results)
 
       results.rows.forEach(row => {
         socket.emit('chat message', row.content, row.id.toString())
