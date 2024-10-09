@@ -6,7 +6,7 @@ Clase 7:
 2. Usuarios en base de datos
 3. Registro de usuarios
 4. Autenticación básica con login y password
-5. Verificación de autenticación
+5. Usando hashes y salts
 6. Sesión de usuarios con cookie
 7. Json Web Tokens
 8. Refactorización con un middleware
