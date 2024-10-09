@@ -1,5 +1,6 @@
 import DBlocal from 'db-local'
-import Schema from 'db-local/lib/modules/schema'
+
+const { Schema } = new DBlocal({ path: './db' })
 
 const User = Schema('User', {
   _id: { type: String, required: true },
