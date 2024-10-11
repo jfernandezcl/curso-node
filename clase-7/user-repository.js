@@ -1,4 +1,5 @@
 import DBlocal from 'db-local'
+import crypto from 'crypto'
 
 const { Schema } = new DBlocal({ path: './db' })
 
