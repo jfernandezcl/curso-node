@@ -16,7 +16,7 @@ app.post('/register', (req, res) => {
   const { username, password } = req.body
 
   try {
-    const id = UserRepository.created({ username, password })
+    const id = UserRepository.create({ username, password })
     res.send({ id })
   } catch (error) {
     res.status(400).send({ error })
