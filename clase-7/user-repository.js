@@ -1,5 +1,7 @@
 import DBlocal from 'db-local'
-import crypto from 'crypto'
+import crypto from 'node:crypto'
+import bcrypt from 'bcrypt'
+import { SALT_ROUNDS } from './config.js'
 
 const { Schema } = new DBlocal({ path: './db' })
 
@@ -23,11 +25,12 @@ export class UserRepository {
     if (user) throw new Error('username already exists')
 
     const id = crypto.randomUUID()
+    const hashedPassword = bcrypt.hashSync(password, SALT_ROUNDS)
 
     User.create({
       _id: id,
       username,
-      password
+      password: hashedPassword
     }).save()
     return id
   }
