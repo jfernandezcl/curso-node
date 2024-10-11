@@ -41,7 +41,9 @@ export class UserRepository {
     const isValid = await bcrypt.compareSync(password, user.password)
     if (!isValid) throw new Error('password is invalid')
 
-    return user
+    const { password: _, ...publicUser } = user
+
+    return publicUser
   }
 }
 
