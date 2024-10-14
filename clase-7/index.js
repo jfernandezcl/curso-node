@@ -34,7 +34,11 @@ app.post('/register', async (req, res) => {
 
 app.post('/logout', (req, res) => { })
 
-app.get('/protected', (req, res) => { })
+app.get('/protected', (req, res) => {
+  // TODO: if sesión del usuario
+  res.render(('protected', { username: 'midu' }))
+  // TODO: else 401
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
