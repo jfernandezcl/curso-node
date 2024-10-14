@@ -10,7 +10,14 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
-  res.render('example', { username: 'midu' })
+  if (!token) return res.render('indez')
+
+  try {
+    const data = jwt.verify(token, SECRET_JWT__KEY)
+    res.render('index', data) // {_id, username}
+  } catch (error) {
+    res.render('index')
+  }
 })
 
 app.post('/login', async (req, res) => {
