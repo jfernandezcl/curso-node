@@ -9,15 +9,20 @@ app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(cookieParser())
 
-app.get('/', (req, res) => {
-  if (!token) return res.render('indez')
+app.use((res, res, next) => {
+  const token = req.cookies.access_token
+  req.session = { user: null }
 
   try {
     const data = jwt.verify(token, SECRET_JWT__KEY)
-    res.render('index', data) // {_id, username}
-  } catch (error) {
-    res.render('index')
-  }
+    req.session.user = data
+  } catch { }
+  next()
+})
+
+app.get('/', (req, res) => {
+  const { user } = req.session
+  res.render('index', user)
 })
 
 app.post('/login', async (req, res) => {
@@ -55,15 +60,10 @@ app.post('/register', async (req, res) => {
 app.post('/logout', (req, res) => { })
 
 app.get('/protected', (req, res) => {
-  const token = req.cookies.access_token
-  if (!token) {
+  const { user } = req.session
+  if (!user) {
     return res.status(403).send('Access not authorized')
-  }
-  try {
-    const data = jwt.verify(token, SECRET_JWT__KEY)
-    res.render('protected', data) // {_id. username}
-  } catch (error) {
-    res.status(401).send('Access not authorized')
+    res.render('protected', user)
   }
 })
 
