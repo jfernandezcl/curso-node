@@ -1,6 +1,7 @@
 import express from 'express'
-import { PORT } from './config.js'
+import { PORT, SECRET_JWT__KEY } from './config.js'
 import { UserRepository } from './user-repository.js'
+import jwt from 'jasonwebtoken'
 
 const app = express()
 app.set('view engine', 'ejs')
@@ -15,6 +16,9 @@ app.post('/login', async (req, res) => {
 
   try {
     const user = await UserRepository.login({ username, password })
+    const token = jwt.sign({ id: user._id, username: user.username }, SECRET_JWT__KEY, {
+      expiresIn: '1h'
+    })
     res.send({ user })
   } catch (error) {
     res.status(401).send(error)
